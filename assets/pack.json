@@ -1,0 +1,32 @@
+{
+  "Preload": {
+    "path": "../assets/",
+    "files": [
+      {
+        "type": "spritesheet",
+        "key": "buttonUIs",
+        "url": "menu/mainMenu/ui.png",
+        "frameConfig": {
+          "frameWidth": 50,
+          "frameHeight": 50,
+          "margin": 0,
+          "spacing": 0
+        }
+      },
+      {
+        "type": "image",
+        "key": "title",
+        "url": "menu/mainMenu/title.png"
+      },
+      {
+        "type": "image",
+        "key": "overlay",
+        "url": "menu/overlay.png"
+      }
+    ]
+  },
+  "meta": {
+    "game": "Basic Jumper",
+    "author": "Teemu Viitanen"
+  }
+}
