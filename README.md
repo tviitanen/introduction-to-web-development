@@ -32,8 +32,9 @@ Hardest parts in development was probably dealing with the scenes and starting n
 - There are different kind of enemies/objects which can hurt the player. 3p
 - There are sound effects on the game. (Annoying) backgound music, sound when jumping, collecting stars and hitting to enemy/bomb 3p
 - There are more than one map. Second map has the same basic idea but is harder to play. 3p
-- There are moving platforms on the game. (Second map) 3
-=== TOTAL: 22p
+- There are moving platforms on the game. (Second map) 3p
+
+= TOTAL: 22p
 
 #### TODO:
 - Users can get their name on the scoreboard. 3p
