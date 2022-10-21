@@ -182,6 +182,7 @@ class Map1 extends Phaser.Scene {
     if (this.score === 10 && this.redStar === false) {
       this.addRedStar();
     }
+
     // movement & anim
     if (this.keyboard.left.isDown) {
       this.player.setVelocityX(-160);
@@ -207,6 +208,7 @@ class Map1 extends Phaser.Scene {
     if (this.player.x < this.enemy1.x && this.enemy1.body.velocity.x >= 0) {
       // move enemy to left
       this.enemy1.body.velocity.x = -40;
+      this.enemy1.flipX = true;
     }
     // if player to right of enemy AND enemy moving to left (or not moving)
     else if (
@@ -215,6 +217,7 @@ class Map1 extends Phaser.Scene {
     ) {
       // move enemy to right
       this.enemy1.body.velocity.x = 40;
+      this.enemy1.flipX = false;
     }
   }
 

@@ -225,6 +225,7 @@ class Map2 extends Phaser.Scene {
     if (this.player.x < this.enemy1.x && this.enemy1.body.velocity.x >= 0) {
       // move enemy to left
       this.enemy1.body.velocity.x = -40;
+      this.enemy1.flipX = true;
     }
     // if player to right of enemy AND enemy moving to left (or not moving)
     else if (
@@ -233,6 +234,7 @@ class Map2 extends Phaser.Scene {
     ) {
       // move enemy to right
       this.enemy1.body.velocity.x = 40;
+      this.enemy1.flipX = false;
     }
 
     // enemy2
@@ -240,6 +242,7 @@ class Map2 extends Phaser.Scene {
     if (this.player.x < this.enemy2.x && this.enemy2.body.velocity.x >= 0) {
       // move enemy to left
       this.enemy2.body.velocity.x = -90;
+      this.enemy2.flipX = true;
     }
     // if player to right of enemy AND enemy moving to left (or not moving)
     else if (
@@ -248,22 +251,33 @@ class Map2 extends Phaser.Scene {
     ) {
       // move enemy to right
       this.enemy2.body.velocity.x = 90;
+      this.enemy2.flipX = false;
     }
-
+    // platform horizontal movement
     if (this.movingPlatform.x > 900) {
       this.movingPlatform.setVelocityX(-60);
     }
     if (this.movingPlatform.x < -100) {
       this.movingPlatform.setVelocityX(60);
     }
+    // platform vertical movement
     if (this.movingPlatform2.y > 586) {
       this.movingPlatform2.setVelocityY(-60);
     }
     if (this.movingPlatform2.y < 0) {
       this.movingPlatform2.setVelocityY(60);
     }
+    /*
+    // kill enemy by jumping over them
+    if (this.player.body.velocity.y > 0 || this.enemy1.body.blocked.up) {
+      this.enemy1.destroy();
+      this.score += 20;
+    }
+    if (this.player.body.velocity.y > 0 || this.enemy2.body.blocked.up) {
+      this.enemy2.destroy();
+      this.score += 20;
+    } */
   }
-
   pausePlay() {
     this.scene.launch("Pause");
     this.scene.pause();
