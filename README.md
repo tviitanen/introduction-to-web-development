@@ -15,7 +15,8 @@ In the game, the goal is to collect stars. Each yellow star gives you 10 points.
 ### DEVELOPMENT
 
 Game is created in codesandbox, and can be tested straight from
-https://codesandbox.io/s/phaser-project-4jb1s3
+https://codesandbox.io/s/github/tviitanen/introduction-to-web-development
+
 
 This game is created with vanilla js. Also Phaser 3.55.2 library is used in development. Process included lot of learning and searching since this is my first game project. Filestructure is so that from src-folder you can find all the .js files. In assets folder there is  pictures and sounds. Pictures are used for character, enemy, bomb and menu. Sounds are in assets/sounds folder and those are used for in-game audio. There is many scenes/js files, since I wanted to try how to create game with multiple .js files. Also that gives me better play ground if I wish to develop this game even further. Simple phaser-template is used for file-structure, which can be found on phaser documents.
 
