@@ -46,7 +46,7 @@ Hardest part in development process was probably dealing with the different scen
 
 #### Bugs:
 - Pause.js move to mainmenu is not working
-- Enemy sprite does not turn when moving
+- Enemy sprite 'spins' when horizontally aligned with player
 
 ### SOURCES
 
