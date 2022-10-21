@@ -2,7 +2,6 @@ import "./styles.css";
 import Phaser from "phaser";
 
 import { Plugin as NineSlicePlugin } from "phaser3-nineslice";
-
 import Boot from "./Boot";
 import Preloader from "./Preloader";
 import MainMenu from "./MainMenu";
