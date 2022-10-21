@@ -193,6 +193,8 @@ class Map1 extends Phaser.Scene {
     this.ENEMY_MAX_V = 50;
     this.PLAYER_MAX_V = 160;
     this.BOMB_MAX_V = 200;
+
+    this.SCORE = 10;
   }
 
   update() {
@@ -273,7 +275,7 @@ class Map1 extends Phaser.Scene {
     this.starSound.play();
 
     star.disableBody(true, true);
-    this.score += 10;
+    this.score += this.SCORE;
     this.scoreText.setText("Score: " + this.score);
 
     // if all stars are collected
@@ -306,7 +308,7 @@ class Map1 extends Phaser.Scene {
     this.redStarSound.play();
 
     star.disableBody(true, true);
-    this.score += 20;
+    this.score += 2 * this.SCORE;
     this.scoreText.setText("Score: " + this.score);
     // start new Map
     this.cameras.main.on("camerafadeoutcomplete", () => {
@@ -357,6 +359,9 @@ class Map1 extends Phaser.Scene {
     this.ENEMY_MAX_V = 25;
     this.PLAYER_MAX_V = 100;
     this.BOMB_MAX_V = 130;
+    this.SCORE = 20;
+
+    //TODO
 
     // normalize after 60s
     // this.time.addEvent({ delay: 60, callback: this.normalizeVelocities() });
@@ -367,6 +372,7 @@ class Map1 extends Phaser.Scene {
     this.ENEMY_MAX_V = 50;
     this.PLAYER_MAX_V = 160;
     this.BOMB_MAX_V = 200;
+    this.SCORE = 10;
     this.bgImage.clearTint();
   }
 }

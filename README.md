@@ -12,7 +12,7 @@ In game, there is an option for user to pause game and to return to mainmenu (cu
 
 ### PLOT
 
-In the game, the goal is to collect stars. Each yellow star gives you 10 points. When all yellow stars are collected, new stars are dropped to game. Also, bomb is added to the game. If bomb touches you, it's game over. On the ground, there is an enemy tracking your location and trying to kill you. From red star you can get more points and spawn to a new map, but it is not required to collect (new stars are dropped anyway). Second map has more enemies, but you get more points by collecting stars.
+In the game, the goal is to collect stars. Each yellow star gives you 10 points. When all yellow stars are collected, new stars are dropped to game. Also, bomb is added to the game. If bomb touches you, it's game over. On the ground, there is an enemy tracking your location and trying to kill you. If you eat mushroom, you get sick. Player and enemy movement slows down and background turns green. Extra effort doesn't go unnoticed. You get double points when sick. From red star you can get more points and spawn to a new map, but it is not required to collect (new stars are dropped anyway). Second map has more enemies, but you get more points by collecting stars.
 
 ### DEVELOPMENT
 
@@ -26,7 +26,7 @@ Hardest part in development process was probably dealing with the different scen
 
 ## GRADING
 
-- Report is written carefully and contains all the important staff. 2p
+- Report is written carefully and contains all the important stuff. 2p
 - Game has clear plot and function (collect stars/points). Game gets harder further you keep playing since the amount of bomb increases in each round. 4p
 - Application works on most used browsers (Chrome, Firefox, Edge). 2p
 - Application is responsible and all the files are not in the same folder (no minus points).
@@ -38,7 +38,7 @@ Hardest part in development process was probably dealing with the different scen
 - Boot screen, mainmenu and pause functionality. 2p
 - There are different kind of objects to collect with different kind of functionalities. 2p
 
-= TOTAL: 24p
+= TOTAL: 24/30p
 
 #### TODO:
 
