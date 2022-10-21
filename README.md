@@ -30,13 +30,12 @@ Hardest part in development process was probably dealing with the different scen
 - Game has clear plot and function (collect stars/points). Game gets harder further you keep playing since the amount of bomb increases in each round. 4p
 - Application works on most used browsers (Chrome, Firefox, Edge). 2p
 - Application is responsible and all the files are not in the same folder (no minus points).
-- Application has a logical filestucture good for further development.
-- Also code is well commented making it more readable and understandable. 2p.
+- Application has a logical filestucture good for further development. Also code is well commented and uses describing methods and variables making it more readable and more maintainable (and understandable). 2p.
 - There are different kind of enemies/objects which can hurt the player. 3p
-- There are sound effects on the game. (Annoying) backgound music, sound when jumping, collecting stars and hitting to enemy/bomb 3p
+- There are sound effects on the game. (Annoying) backgound music, sound when jumping, collecting stars, moving to next map, eating mushroom and hitting to enemy/bomb 3p
 - There are more than one map. Second map has the same basic idea but is harder to play. 3p
-- There are moving platforms on the game (Second map). 3p
-- Start screen, bootloader and pause functionality. 2p
+- There are moving platforms on the game (Second map) and in the main menu. 3p
+- Boot screen, mainmenu and pause functionality. 2p
 - There are different kind of objects to collect with different kind of functionalities. 2p
 
 = TOTAL: 24p
@@ -44,13 +43,13 @@ Hardest part in development process was probably dealing with the different scen
 #### TODO:
 
 - Users can get their name on the scoreboard. 3p
-- There are different kind of objects to collect with different kind of points and plenty of them. 2p
 - Kill an enemy (or destroy bomb?) 2p
+- Timer to normalize velocities after 60s after eating mushroom
 
 #### Bugs:
 
 - Pause.js move to mainmenu is not working
-- Enemy sprite spins while aligned whit the player
+- Enemy sprite 'spins' while aligned with the player
 
 ### SOURCES
 

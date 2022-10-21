@@ -317,7 +317,7 @@ class Map2 extends Phaser.Scene {
       this.groupStars.children.iterate(function iterate(star) {
         star.enableBody(true, star.x, 0, true, true);
       });
-
+      // add bomb
       let x;
       if (this.player.x < 400) {
         x = Phaser.Math.Between(400, 800);

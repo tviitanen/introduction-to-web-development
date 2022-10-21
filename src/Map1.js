@@ -13,6 +13,7 @@ class Map1 extends Phaser.Scene {
     this.load.image("mushroom-img", "assets/mushroom.png");
     this.load.image("gameover-img", "assets/gameover.png");
     this.load.audio("hit", "assets/sounds/hit.wav");
+    this.load.audio("belch", "assets/sounds/belch.mp3");
     this.load.audio("jump", "assets/sounds/jump.wav");
     this.load.audio("levelup", "assets/sounds/levelup.mp3");
     this.load.audio("star", "assets/sounds/star.mp3");
@@ -39,7 +40,7 @@ class Map1 extends Phaser.Scene {
     this.cameras.main.fadeIn(250);
 
     //create background
-    this.add.image(400, 300, "sky-img");
+    this.bgImage = this.add.image(400, 300, "sky-img");
 
     // create UI
     this.createUI();
@@ -187,6 +188,11 @@ class Map1 extends Phaser.Scene {
       null,
       this
     );
+
+    // velocities
+    this.ENEMY_MAX_V = 50;
+    this.PLAYER_MAX_V = 160;
+    this.BOMB_MAX_V = 200;
   }
 
   update() {
@@ -200,10 +206,10 @@ class Map1 extends Phaser.Scene {
 
     // movement & anim
     if (this.keyboard.left.isDown) {
-      this.player.setVelocityX(-160);
+      this.player.setVelocityX(-this.PLAYER_MAX_V);
       this.player.anims.play("anim-left-turn", true);
     } else if (this.keyboard.right.isDown) {
-      this.player.setVelocityX(160);
+      this.player.setVelocityX(this.PLAYER_MAX_V);
       this.player.anims.play("anim-turn-right", true);
     } else {
       this.player.setVelocityX(0);
@@ -222,7 +228,7 @@ class Map1 extends Phaser.Scene {
     // if player to left of enemy AND enemy moving to right (or not moving)
     if (this.player.x < this.enemy1.x && this.enemy1.body.velocity.x >= 0) {
       // move enemy to left
-      this.enemy1.body.velocity.x = -40;
+      this.enemy1.body.velocity.x = -this.ENEMY_MAX_V;
       this.enemy1.flipX = true;
     }
     // if player to right of enemy AND enemy moving to left (or not moving)
@@ -231,7 +237,7 @@ class Map1 extends Phaser.Scene {
       this.enemy1.body.velocity.x <= 0
     ) {
       // move enemy to right
-      this.enemy1.body.velocity.x = 40;
+      this.enemy1.body.velocity.x = this.ENEMY_MAX_V;
       this.enemy1.flipX = false;
     }
   }
@@ -275,7 +281,7 @@ class Map1 extends Phaser.Scene {
       this.groupStars.children.iterate(function iterate(star) {
         star.enableBody(true, star.x, 0, true, true);
       });
-
+      // add bomb
       let x;
       if (this.player.x < 400) {
         x = Phaser.Math.Between(400, 800);
@@ -286,7 +292,10 @@ class Map1 extends Phaser.Scene {
       let bomb = this.groupBombs.create(x, 16, "bomb-img");
       bomb.setBounce(1);
       bomb.setCollideWorldBounds(true);
-      bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      bomb.setVelocity(
+        Phaser.Math.Between(-this.BOMB_MAX_V, this.BOMB_MAX_V),
+        20
+      );
       bomb.allowGravity = false;
     }
   }
@@ -340,8 +349,25 @@ class Map1 extends Phaser.Scene {
     this.groupGameOver.create(400, 300, "gameover-img");
   }
 
-  collectMushroom() {
-    // TODO
+  collectMushroom(player, mushroom) {
+    mushroom.disableBody(true, true);
+    this.mushroomSound = this.sound.add("belch");
+    this.mushroomSound.play();
+    this.bgImage.setTint(0x86b049);
+    this.ENEMY_MAX_V = 25;
+    this.PLAYER_MAX_V = 100;
+    this.BOMB_MAX_V = 130;
+
+    // normalize after 60s
+    // this.time.addEvent({ delay: 60, callback: this.normalizeVelocities() });
+    // this.time.delayedCall(60000, this.normalizeVelocities(), [], this)
+  }
+
+  normalizeVelocities() {
+    this.ENEMY_MAX_V = 50;
+    this.PLAYER_MAX_V = 160;
+    this.BOMB_MAX_V = 200;
+    this.bgImage.clearTint();
   }
 }
 
