@@ -1,7 +1,9 @@
 # Introduction to web development
+
 This game is developed for LUT University course 'Introduction to web programming' as final project in autumn 2022.
 
 ## BASIC JUMPER
+
 @author tviitanen
 
 In this project, Phaser3 library is used to develop a simple game. There is boot screen, mainmenu. From mainmenu you can start playing by clicking a button.
@@ -18,8 +20,7 @@ Game is created in CodeSandbox, and can be tested straight from
 
 https://codesandbox.io/s/github/tviitanen/introduction-to-web-development
 
-
-This game is created with vanilla js. Also Phaser 3.55.2 library is used in development. Process included lot of learning and searching since this is my first game project. Filestructure is so that from src-folder you can find all the .js files. In assets folder there is  pictures and sounds. Pictures are used for character, enemy, bomb and menu. Sounds are in assets/sounds folder and those are used for in-game audio. There is many scenes/js files, since I wanted to try how to create game with multiple .js files. Also that gives me better play ground if I wish to develop this game even further. Simple phaser-template is used for file-structure, which can be found on phaser documents. Phasers NineSlicePlugin is used for loading bar when starting the game.
+This game is created with vanilla js. Also Phaser 3.55.2 library is used in development. Process included lot of learning and searching since this is my first game project. Filestructure is so that from src-folder you can find all the .js files. In assets folder there is pictures and sounds. Pictures are used for character, enemy, bomb and menu. Sounds are in assets/sounds folder and those are used for in-game audio. There is many scenes/js files, since I wanted to try how to create game with multiple .js files. Also that gives me better play ground if I wish to develop this game even further. Simple phaser-template is used for file-structure, which can be found on phaser documents. Phasers NineSlicePlugin is used for loading bar when starting the game.
 
 Hardest part in development process was probably dealing with the different scenes.
 
@@ -36,17 +37,20 @@ Hardest part in development process was probably dealing with the different scen
 - There are more than one map. Second map has the same basic idea but is harder to play. 3p
 - There are moving platforms on the game (Second map). 3p
 - Start screen, bootloader and pause functionality. 2p
+- There are different kind of objects to collect with different kind of functionalities. 2p
 
 = TOTAL: 24p
 
 #### TODO:
+
 - Users can get their name on the scoreboard. 3p
 - There are different kind of objects to collect with different kind of points and plenty of them. 2p
 - Kill an enemy (or destroy bomb?) 2p
 
 #### Bugs:
+
 - Pause.js move to mainmenu is not working
-- Enemy sprite 'spins' when horizontally aligned with player
+- Enemy sprite spins while aligned whit the player
 
 ### SOURCES
 
@@ -55,4 +59,3 @@ http://phaser.io/examples/v3/view/scenes/changing-scene
 https://codesandbox.io/s/3xdr9?file=/src/MainMenu.js
 https://www.thepolyglotdeveloper.com/2020/09/add-music-sounds-other-audio-phaser-game/
 https://stackblitz.com/edit/typescript-phaser-scene-data-transfer?file=scenes%2Fgame.ts
-https://github.com/jdotrjs/phaser3-nineslice

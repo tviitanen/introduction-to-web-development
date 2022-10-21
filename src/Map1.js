@@ -10,6 +10,7 @@ class Map1 extends Phaser.Scene {
     this.score = 0;
   }
   preload() {
+    this.load.image("mushroom-img", "assets/mushroom.png");
     this.load.image("gameover-img", "assets/gameover.png");
     this.load.audio("hit", "assets/sounds/hit.wav");
     this.load.audio("jump", "assets/sounds/jump.wav");
@@ -132,6 +133,12 @@ class Map1 extends Phaser.Scene {
     // add bombs
     this.groupBombs = this.physics.add.group();
 
+    // add mushroom
+    this.groupMushroom = this.physics.add.group();
+    this.mushroom = this.groupMushroom.create(70, 200, "mushroom-img");
+    this.mushroom.setScale(0.1);
+    this.mushroom.setBounceY(0.3);
+
     // score text
     this.scoreText = this.add.text(16, 16, "Score: 0", {
       fontSize: "32px",
@@ -140,6 +147,7 @@ class Map1 extends Phaser.Scene {
 
     // add colliders
     this.physics.add.collider(this.player, this.groupPlatforms);
+    this.physics.add.collider(this.groupMushroom, this.groupPlatforms);
     this.physics.add.collider(this.enemy1, this.groupPlatforms);
     this.physics.add.collider(this.groupStars, this.groupPlatforms);
     this.physics.add.collider(this.groupRedStars, this.groupPlatforms);
@@ -169,6 +177,13 @@ class Map1 extends Phaser.Scene {
       this.player,
       this.enemy1,
       this.hitToEnemy,
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.player,
+      this.groupMushroom,
+      this.collectMushroom,
       null,
       this
     );
@@ -323,6 +338,10 @@ class Map1 extends Phaser.Scene {
 
     this.scene.pause();
     this.groupGameOver.create(400, 300, "gameover-img");
+  }
+
+  collectMushroom() {
+    // TODO
   }
 }
 

@@ -132,6 +132,7 @@ class Map2 extends Phaser.Scene {
       let x_coordinate = 140 + 70 * i;
       this.groupStars.create(x_coordinate, 10, "star-img");
     }
+
     // this.groupRedStars.create(70, 10, "star-img").setTint(0xff0000);
 
     // set random rebound for stars
