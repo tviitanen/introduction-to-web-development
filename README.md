@@ -55,3 +55,4 @@ http://phaser.io/examples/v3/view/scenes/changing-scene
 https://codesandbox.io/s/3xdr9?file=/src/MainMenu.js
 https://www.thepolyglotdeveloper.com/2020/09/add-music-sounds-other-audio-phaser-game/
 https://stackblitz.com/edit/typescript-phaser-scene-data-transfer?file=scenes%2Fgame.ts
+https://github.com/jdotrjs/phaser3-nineslice
