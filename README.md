@@ -12,7 +12,7 @@ In game, there is an option for user to pause game and to return to mainmenu (cu
 
 ### PLOT
 
-In the game, the goal is to collect stars. Each yellow star gives you 10 points. When all yellow stars are collected, new stars are dropped to game. Also, bomb is added to the game. If bomb touches you, it's game over. On the ground, there is an enemy tracking your location and trying to kill you. If you eat mushroom, you get sick. Player and enemy movement slows down and background turns green. Extra effort doesn't go unnoticed. You get double points when sick. From red star you can get more points and spawn to a new map, but it is not required to collect (new stars are dropped anyway). Second map has more enemies, but you get more points by collecting stars.
+In the game, the goal is to collect stars. Each yellow star gives you 10 points. When all yellow stars are collected, new stars are dropped to game. Also, bomb is added to the game. If bomb touches you, it's game over. On the ground, there is an enemy tracking your location and trying to kill you. If you eat mushroom, you get sick. Player and enemy movement slows down and background turns green. Extra effort doesn't go unnoticed. You get double points when sick. You can kill enemies by jumping over them. You also earn points from killing enemies. From collecting a red star you can get more points and spawn to a new map, but it is not required to collect (new stars are dropped anyway). Second map has more enemies, but you get more points by collecting stars.
 
 ### DEVELOPMENT
 
@@ -37,19 +37,21 @@ Hardest part in development process was probably dealing with the different scen
 - There are moving platforms on the game (Second map) and in the main menu. 3p
 - Boot screen, mainmenu and pause functionality. 2p
 - There are different kind of objects to collect with different kind of functionalities. 2p
+- Kill enemies by jumping over them 2p
 
-= TOTAL: 24/30p
+= TOTAL: 28/30p
 
 #### TODO:
 
 - Users can get their name on the scoreboard. 3p
-- Kill an enemy (or destroy bomb?) 2p
 - Timer to normalize velocities after 60s after eating mushroom
+- Mute annoying background music
 
 #### Bugs:
 
 - Pause.js move to mainmenu is not working
 - Enemy sprite 'spins' while aligned with the player
+- Score doesn't update after killing enemies
 
 ### SOURCES
 

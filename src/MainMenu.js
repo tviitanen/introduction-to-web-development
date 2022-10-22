@@ -10,20 +10,25 @@ class MainMenu extends Phaser.Scene {
   }
   preload() {
     this.load.audio("music", "assets/sounds/music.wav");
+    this.load.image("player", "assets/dude.png");
   }
 
   create() {
+    // Title
     let title = this.add
-      .sprite(this.scale.width / 2, this.scale.height / 2 - 5, "title")
-      .setOrigin(0.5);
+      .sprite(this.scale.width / 1.2, this.scale.height / 2, "title")
+      .setOrigin(0.5, 0.4);
     if (title.displayWidth > this.scale.width) {
-      title.setScale(this.scale.width / (title.width + 5));
+      title.setScale(0.8);
     }
+
+    this.playerImage = this.add.image(400, 300, "player").setScale(2, 2);
 
     // add annoying music
     this.bgMusic = this.sound.add("music", { loop: true });
     this.bgMusic.play();
 
+    // animations
     this.tweens.add({
       targets: title,
       angle: title.angle - 2,
@@ -56,14 +61,16 @@ class MainMenu extends Phaser.Scene {
       ease: "Back"
     });
 
+    // game logo
     let logo = this.add
-      .sprite(20, this.scale.height - 50, "logo")
-      .setOrigin(0, 1);
+      .sprite(this.scale.width, this.scale.height, "logo")
+      .setOrigin(0.1, 0.8);
     if (logo.width + 40 > this.scale.width - playButton.displayWidth - 40) {
       logo.setScale(
-        (this.scale.width - playButton.displayWidth - 40) / (logo.width + 40)
+        (this.scale.width - playButton.displayWidth + 200) / logo.width
       );
     }
+    // animation
     logo.x = -logo.displayWidth - 20;
     this.tweens.add({ targets: logo, x: 20, duration: 500, ease: "Back" });
 

@@ -13,7 +13,10 @@ class Map2 extends Phaser.Scene {
   preload() {
     this.load.image("gameover-img", "assets/gameover.png");
     this.load.audio("hit", "assets/sounds/hit.wav");
+    this.load.audio("kill-enemy", "assets/sounds/killenemy.mp3");
+    this.load.audio("game-over", "assets/sounds/gameover.wav");
     this.load.audio("jump", "assets/sounds/jump.wav");
+    this.load.audio("levelup", "assets/sounds/levelup.mp3");
     this.load.audio("star", "assets/sounds/star.mp3");
     this.load.image("sky-img", "assets/sky.png");
     this.load.image("platform-img", "assets/platform.png");
@@ -86,11 +89,14 @@ class Map2 extends Phaser.Scene {
     this.enemy1.setBounce(0.2);
     // collider bounds
     this.enemy1.setCollideWorldBounds(true);
+    this.enemy1.excistance = true;
+
     // create second enemy
     this.enemy2 = this.physics.add.sprite(600, 450, "enemy-img");
     this.enemy2.setBounce(0.4);
     // collider bounds
     this.enemy2.setCollideWorldBounds(true);
+    this.enemy2.excistance = true;
 
     // left turn animation
     this.anims.create({
@@ -152,8 +158,20 @@ class Map2 extends Phaser.Scene {
 
     // add colliders
     this.physics.add.collider(this.player, this.groupPlatforms);
-    this.physics.add.collider(this.enemy1, this.groupPlatforms);
-    this.physics.add.collider(this.enemy2, this.groupPlatforms);
+    this.physics.add.collider(
+      this.enemy1,
+      this.groupPlatforms,
+      this.hitToEnemy,
+      null,
+      this
+    );
+    this.physics.add.collider(
+      this.enemy2,
+      this.groupPlatforms,
+      this.hitToEnemy,
+      null,
+      this
+    );
     this.physics.add.collider(this.groupStars, this.groupPlatforms);
     this.physics.add.collider(this.groupRedStars, this.groupPlatforms);
     this.physics.add.collider(this.groupBombs, this.groupPlatforms);
@@ -215,44 +233,55 @@ class Map2 extends Phaser.Scene {
     }
     // jump functionality
     // cannot jump if character is not on the ground
-    if (this.keyboard.up.isDown && this.player.body.touching.down) {
+    if (
+      (this.keyboard.up.isDown || this.keyboard.space.isDown) &&
+      this.player.body.touching.down
+    ) {
       this.player.setVelocityY(-300);
       // play jump sound
       this.jumpSound = this.sound.add("jump");
       this.jumpSound.play();
     }
+    if (this.keyboard.down.isDown) {
+      this.player.setVelocityY(500);
+    }
+
     //enemy1
     // if player to left of enemy AND enemy moving to right (or not moving)
-    if (this.player.x < this.enemy1.x && this.enemy1.body.velocity.x >= 0) {
-      // move enemy to left
-      this.enemy1.body.velocity.x = -40;
-      this.enemy1.flipX = true;
-    }
-    // if player to right of enemy AND enemy moving to left (or not moving)
-    else if (
-      this.player.x > this.enemy1.x &&
-      this.enemy1.body.velocity.x <= 0
-    ) {
-      // move enemy to right
-      this.enemy1.body.velocity.x = 40;
-      this.enemy1.flipX = false;
+    if (this.enemy2.excistance) {
+      if (this.player.x < this.enemy1.x && this.enemy1.body.velocity.x >= 0) {
+        // move enemy to left
+        this.enemy1.body.velocity.x = -40;
+        this.enemy1.flipX = true;
+      }
+      // if player to right of enemy AND enemy moving to left (or not moving)
+      else if (
+        this.player.x > this.enemy1.x &&
+        this.enemy1.body.velocity.x <= 0
+      ) {
+        // move enemy to right
+        this.enemy1.body.velocity.x = 40;
+        this.enemy1.flipX = false;
+      }
     }
 
     // enemy2
     // if player to left of enemy AND enemy moving to right (or not moving)
-    if (this.player.x < this.enemy2.x && this.enemy2.body.velocity.x >= 0) {
-      // move enemy to left
-      this.enemy2.body.velocity.x = -90;
-      this.enemy2.flipX = true;
-    }
-    // if player to right of enemy AND enemy moving to left (or not moving)
-    else if (
-      this.player.x > this.enemy2.x &&
-      this.enemy2.body.velocity.x <= 0
-    ) {
-      // move enemy to right
-      this.enemy2.body.velocity.x = 90;
-      this.enemy2.flipX = false;
+    if (this.enemy2.excistance) {
+      if (this.player.x < this.enemy2.x && this.enemy2.body.velocity.x >= 0) {
+        // move enemy to left
+        this.enemy2.body.velocity.x = -90;
+        this.enemy2.flipX = true;
+      }
+      // if player to right of enemy AND enemy moving to left (or not moving)
+      else if (
+        this.player.x > this.enemy2.x &&
+        this.enemy2.body.velocity.x <= 0
+      ) {
+        // move enemy to right
+        this.enemy2.body.velocity.x = 90;
+        this.enemy2.flipX = false;
+      }
     }
     // platform horizontal movement
     if (this.movingPlatform.x > 900) {
@@ -350,7 +379,8 @@ class Map2 extends Phaser.Scene {
     this.physics.pause();
     //tint player to red
     player.setTint(0xff0000);
-
+    this.gameOverSound = this.sound.add("game-over");
+    this.gameOverSound.play();
     player.anims.play("anim-static");
 
     // this.gameOver = true;
@@ -360,20 +390,29 @@ class Map2 extends Phaser.Scene {
   }
 
   hitToEnemy(player, enemy) {
-    // play hitsound
-    this.hitSound = this.sound.add("hit");
-    this.hitSound.play();
-    // pause
-    this.physics.pause();
-    // tint player to red
-    player.setTint(0xff0000);
+    if (enemy.body.touching.up) {
+      enemy.destroy();
+      enemy.excistance = false;
+      this.score += 3 * this.SCORE;
+      this.killSound = this.sound.add("kill-enemy");
+      this.killSound.play();
+    } else {
+      // play hitsound
+      this.hitSound = this.sound.add("hit");
+      this.hitSound.play();
+      // pause
+      this.physics.pause();
+      // tint player to red
+      player.setTint(0xff0000);
+      this.gameOverSound = this.sound.add("game-over");
+      this.gameOverSound.play();
+      player.anims.play("anim-static");
 
-    player.anims.play("anim-static");
+      //this.gameOver = true;
 
-    //this.gameOver = true;
-
-    this.scene.pause();
-    this.groupGameOver.create(400, 300, "gameover-img");
+      this.scene.pause();
+      this.groupGameOver.create(400, 300, "gameover-img");
+    }
   }
 }
 

@@ -13,6 +13,8 @@ class Map1 extends Phaser.Scene {
     this.load.image("mushroom-img", "assets/mushroom.png");
     this.load.image("gameover-img", "assets/gameover.png");
     this.load.audio("hit", "assets/sounds/hit.wav");
+    this.load.audio("kill-enemy", "assets/sounds/killenemy.mp3");
+    this.load.audio("game-over", "assets/sounds/gameover.wav");
     this.load.audio("belch", "assets/sounds/belch.mp3");
     this.load.audio("jump", "assets/sounds/jump.wav");
     this.load.audio("levelup", "assets/sounds/levelup.mp3");
@@ -76,11 +78,12 @@ class Map1 extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
 
     // create enemy
-    this.enemy1 = this.physics.add.sprite(450, 450, "enemy-img");
+    this.enemy = this.physics.add.sprite(450, 450, "enemy-img");
     // small bounce when character drops to ground
-    this.enemy1.setBounce(0.2);
+    this.enemy.setBounce(0.2);
     // collider bounds
-    this.enemy1.setCollideWorldBounds(true);
+    this.enemy.setCollideWorldBounds(true);
+    this.enemy.excistance = true;
 
     // left turn animation
     this.anims.create({
@@ -147,9 +150,15 @@ class Map1 extends Phaser.Scene {
     });
 
     // add colliders
-    this.physics.add.collider(this.player, this.groupPlatforms);
+    this.physics.add.collider(
+      this.player,
+      this.groupPlatforms,
+      this.hitToGround,
+      null,
+      this
+    );
     this.physics.add.collider(this.groupMushroom, this.groupPlatforms);
-    this.physics.add.collider(this.enemy1, this.groupPlatforms);
+    this.physics.add.collider(this.enemy, this.groupPlatforms);
     this.physics.add.collider(this.groupStars, this.groupPlatforms);
     this.physics.add.collider(this.groupRedStars, this.groupPlatforms);
     this.physics.add.collider(this.groupBombs, this.groupPlatforms);
@@ -176,7 +185,7 @@ class Map1 extends Phaser.Scene {
     );
     this.physics.add.collider(
       this.player,
-      this.enemy1,
+      this.enemy,
       this.hitToEnemy,
       null,
       this
@@ -219,28 +228,37 @@ class Map1 extends Phaser.Scene {
     }
     // jump functionality
     // cannot jump if character is not on the ground
-    if (this.keyboard.up.isDown && this.player.body.touching.down) {
+    if (
+      (this.keyboard.up.isDown || this.keyboard.space.isDown) &&
+      this.player.body.touching.down
+    ) {
       this.player.setVelocityY(-300);
       // play jump sound
       this.jumpSound = this.sound.add("jump");
       this.jumpSound.play();
     }
-
-    //enemy1
-    // if player to left of enemy AND enemy moving to right (or not moving)
-    if (this.player.x < this.enemy1.x && this.enemy1.body.velocity.x >= 0) {
-      // move enemy to left
-      this.enemy1.body.velocity.x = -this.ENEMY_MAX_V;
-      this.enemy1.flipX = true;
+    if (this.keyboard.down.isDown) {
+      this.player.setVelocityY(500);
     }
-    // if player to right of enemy AND enemy moving to left (or not moving)
-    else if (
-      this.player.x > this.enemy1.x &&
-      this.enemy1.body.velocity.x <= 0
-    ) {
-      // move enemy to right
-      this.enemy1.body.velocity.x = this.ENEMY_MAX_V;
-      this.enemy1.flipX = false;
+
+    //enemy
+    if (this.enemy.excistance) {
+      // check excistance
+      // if player to left of enemy AND enemy moving to right (or not moving)
+      if (this.player.x < this.enemy.x && this.enemy.body.velocity.x >= 0) {
+        // move enemy to left
+        this.enemy.body.velocity.x = -this.ENEMY_MAX_V;
+        this.enemy.flipX = true;
+      }
+      // if player to right of enemy AND enemy moving to left (or not moving)
+      else if (
+        this.player.x > this.enemy.x &&
+        this.enemy.body.velocity.x <= 0
+      ) {
+        // move enemy to right
+        this.enemy.body.velocity.x = this.ENEMY_MAX_V;
+        this.enemy.flipX = false;
+      }
     }
   }
 
@@ -327,7 +345,8 @@ class Map1 extends Phaser.Scene {
     player.setTint(0xff0000);
 
     player.anims.play("anim-static");
-
+    this.gameOverSound = this.sound.add("game-over");
+    this.gameOverSound.play();
     // this.gameOver = true;
     // t0 mainmenu
     this.scene.pause();
@@ -335,20 +354,30 @@ class Map1 extends Phaser.Scene {
   }
 
   hitToEnemy(player, enemy) {
-    // play hitsound
-    this.hitSound = this.sound.add("hit");
-    this.hitSound.play();
-    // pause
-    this.physics.pause();
-    // tint player to red
-    player.setTint(0xff0000);
+    // kill enemy
+    if (enemy.body.touching.up) {
+      this.enemy.destroy();
+      this.enemy.excistance = false;
+      this.score += 3 * this.SCORE;
+      this.killSound = this.sound.add("kill-enemy");
+      this.killSound.play();
+    } else {
+      // play hitsound
+      this.hitSound = this.sound.add("hit");
+      this.hitSound.play();
+      // pause
+      this.physics.pause();
+      // tint player to red
+      player.setTint(0xff0000);
+      this.gameOverSound = this.sound.add("game-over");
+      this.gameOverSound.play();
+      player.anims.play("anim-static");
 
-    player.anims.play("anim-static");
+      //this.gameOver = true;
 
-    //this.gameOver = true;
-
-    this.scene.pause();
-    this.groupGameOver.create(400, 300, "gameover-img");
+      this.scene.pause();
+      this.groupGameOver.create(400, 300, "gameover-img");
+    }
   }
 
   collectMushroom(player, mushroom) {
