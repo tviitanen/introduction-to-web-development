@@ -20,16 +20,16 @@ https://codesandbox.io/s/github/tviitanen/introduction-to-web-development
 
 This game is created with vanilla JavaScript. Also Phaser 3.55.2 library is used in development. Process included lot of learning and searching since this is my first game project. Filestructure is so that from src-folder you can find all the .js files. In assets folder there is pictures and sounds. Pictures are used for character, enemy, bomb and menu objects including buttons. Sounds are in assets/sounds folder and those are used for in-game audio. There is many scenes/js files, since I wanted to try how to create game with multiple .js files/scenes. Also that gives me better play ground if I wish to develop this game even further. Simple phaser-template is used for menu structure,which can be found from sources. Phasers NineSlicePlugin is used for loadingbar when booting the game. There are also some animations added to game when changing scenes and on the main menu. There is around 1200 lines of code, since this project was pretty fun thing to do!
 
-## CONTROLS
+### CONTROLS
 
 - Jump: space / down
 - Move right: arrow right
 - Move left: arrow left
 - Go down: arrow down (easier to kill enemies this way)
 
-## IN GAME OBJECTS
+### IN GAME OBJECTS
 
-### Map 1
+#### Map 1
 
 - Stars
 - Red star to move to a next map
@@ -38,7 +38,7 @@ This game is created with vanilla JavaScript. Also Phaser 3.55.2 library is used
 - Bombs
 - Platforms
 
-### Map 2
+#### Map 2
 
 - Stars
 - Red star to move to a next map
@@ -48,11 +48,11 @@ This game is created with vanilla JavaScript. Also Phaser 3.55.2 library is used
 - Horizontally moving platform
 - Vertically moving platform
 
-## GAME FUNCTIONALITIES
+### GAME FUNCTIONALITIES
 
 When starting application loading bar is showing the progress. In main menu, you can see game name and start game by clicking a button. In game, you can pause the game and after that either continue gaming or return to main menu. If you lose, game over picture is shown, player changes to red and game physics is stopped. Also, button is added to restart game. There is some animations like moving pictures and camera fadeout when changing scenes. Player can kill enemies by jumping over them, and get some points. New enemies are added when all stars are collected. Also bombs are added to a random location. Player and enemies slows down and background turns green after eating a mushroom. There is sound when jumping, killing an enemy, collecting star, moving to next map, game over and eating mushroom. Red star to move to next map is added after collecting 100 poinst. In map 2 there are vertically and horizontally moving platforms.
 
-## GRADING
+### GRADING
 
 - Report is written carefully and contains all the important stuff. 2p
 - Game has clear plot and function (collect stars/points). Game gets harder further you keep playing since the amount of bomb increases in each round. 4p
