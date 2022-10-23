@@ -211,7 +211,7 @@ class Map1 extends Phaser.Scene {
     if (this.gameOver) {
       return;
     } */
-    if (this.score === 100 && this.redStar === false) {
+    if (this.score >= 100 && this.redStar === false) {
       this.addRedStar();
     }
 
@@ -263,7 +263,8 @@ class Map1 extends Phaser.Scene {
   }
 
   pausePlay() {
-    this.scene.launch("Pause");
+    this.sceneKey = "Map1";
+    this.scene.launch("Pause", { sceneKey: this.sceneKey });
     this.scene.pause();
   }
 

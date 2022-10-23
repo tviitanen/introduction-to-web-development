@@ -306,7 +306,8 @@ class Map2 extends Phaser.Scene {
     } */
   }
   pausePlay() {
-    this.scene.launch("Pause");
+    this.sceneKey = "Map2";
+    this.scene.launch("Pause", { sceneKey: this.sceneKey });
     this.scene.pause();
   }
 

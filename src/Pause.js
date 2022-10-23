@@ -9,7 +9,9 @@ class Pause extends Phaser.Scene {
     });
   }
 
-  create() {
+  create(sceneKey) {
+    this.sceneKey = sceneKey.sceneKey;
+
     this.pausedGroup = this.add.group();
 
     this.pausedBg = this.add.image(0, 0, "overlay");
@@ -65,8 +67,13 @@ class Pause extends Phaser.Scene {
   continue() {
     this.cameras.main.on("camerafadeoutcomplete", () => {
       this.cameras.main.on("camerafadeincomplete", () => {
-        this.scene.resume("Play");
         this.scene.stop();
+        if (this.sceneKey === "Map1") {
+          this.scene.resume("Map1");
+        }
+        if (this.sceneKey === "Map2") {
+          this.scene.resume("Map2");
+        }
       });
       this.cameras.main.fadeIn(250);
     });
