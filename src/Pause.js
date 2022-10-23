@@ -92,6 +92,8 @@ class Pause extends Phaser.Scene {
   goBackToMenu() {
     this.cameras.main.on("camerafadeoutcomplete", () => {
       this.scene.start("MainMenu");
+      this.scene.stop("Map1");
+      this.scene.stop("Map2");
       this.scene.stop();
     });
     this.cameras.main.fadeOut(250);

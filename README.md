@@ -1,4 +1,4 @@
-# Introduction to web development
+# Introduction to web development course project
 
 This game is developed for LUT University course 'Introduction to web programming' as final project in autumn 2022.
 
@@ -8,11 +8,9 @@ This game is developed for LUT University course 'Introduction to web programmin
 
 In this project, Phaser3 library is used to develop a simple game. There is boot screen, mainmenu. From mainmenu you can start playing by clicking a button.
 
-In game, there is an option for user to pause game and to return to mainmenu (currently not working, game freezes).
-
 ### PLOT
 
-In the game, the goal is to collect stars. Each yellow star gives you 10 points. When all yellow stars are collected, new stars are dropped to game. Also, bomb is added to the game. If bomb touches you, it's game over. On the ground, there is an enemy tracking your location and trying to kill you. If you eat mushroom, you get sick. Player and enemy movement slows down and background turns green. Extra effort doesn't go unnoticed. You get double points when sick. You can kill enemies by jumping over them. You also earn points from killing enemies. From collecting a red star you can get more points and spawn to a new map, but it is not required to collect (new stars are dropped anyway). Second map has more enemies, but you get more points by collecting stars.
+In the game, the goal is to collect stars. Each yellow star gives you 10 points. When all yellow stars are collected, new stars are dropped to game. Also, bomb and enemies are added to the game. If bomb touches you, it's game over. On the ground, there is enemies tracking your location and trying to kill you. You can earn points (30p) if you manage to kill an enemy by jumping over them. If you eat mushroom, you get sick. Player and enemy movement slows down and background turns green. Extra effort doesn't go unnoticed. You get double points when sick. From collecting a red star you can get more points (20p) and spawn to a new map, but it is not required to collect (new stars are dropped anyway). Second map has more enemies and is harder to play with moving platforms.
 
 ### DEVELOPMENT
 
@@ -20,9 +18,39 @@ Game is created in CodeSandbox, and can be tested straight from
 
 https://codesandbox.io/s/github/tviitanen/introduction-to-web-development
 
-This game is created with vanilla js. Also Phaser 3.55.2 library is used in development. Process included lot of learning and searching since this is my first game project. Filestructure is so that from src-folder you can find all the .js files. In assets folder there is pictures and sounds. Pictures are used for character, enemy, bomb and menu. Sounds are in assets/sounds folder and those are used for in-game audio. There is many scenes/js files, since I wanted to try how to create game with multiple .js files. Also that gives me better play ground if I wish to develop this game even further. Simple phaser-template is used for file-structure, which can be found on phaser documents. Phasers NineSlicePlugin is used for loading bar when starting the game.
+This game is created with vanilla JavaScript. Also Phaser 3.55.2 library is used in development. Process included lot of learning and searching since this is my first game project. Filestructure is so that from src-folder you can find all the .js files. In assets folder there is pictures and sounds. Pictures are used for character, enemy, bomb and menu objects including buttons. Sounds are in assets/sounds folder and those are used for in-game audio. There is many scenes/js files, since I wanted to try how to create game with multiple .js files/scenes. Also that gives me better play ground if I wish to develop this game even further. Simple phaser-template is used for menu structure,which can be found from sources. Phasers NineSlicePlugin is used for loadingbar when booting the game. There are also some animations added to game when changing scenes and on the main menu. There is around 1200 lines of code, since this project was pretty fun thing to do!
 
-Hardest part in development process was probably dealing with the different scenes.
+## CONTROLS
+
+- Jump: space / down
+- Move right: arrow right
+- Move left: arrow left
+- Go down: arrow down (easier to kill enemies this way)
+
+## IN GAME OBJECTS
+
+### Map 1
+
+- Stars
+- Red star to move to a next map
+- Mushroom
+- Enemies
+- Bombs
+- Platforms
+
+### Map 2
+
+- Stars
+- Red star to move to a next map
+- Enemies
+- Bombs
+- Platforms
+- Horizontally moving platform
+- Vertically moving platform
+
+## GAME FUNCTIONALITIES
+
+When starting application loading bar is showing the progress. In main menu, you can see game name and start game by clicking a button. In game, you can pause the game and after that either continue gaming or return to main menu. If you lose, game over picture is shown, player changes to red and game physics is stopped. Also, button is added to restart game. There is some animations like moving pictures and camera fadeout when changing scenes. Player can kill enemies by jumping over them, and get some points. New enemies are added when all stars are collected. Also bombs are added to a random location. Player and enemies slows down and background turns green after eating a mushroom. There is sound when jumping, killing an enemy, collecting star, moving to next map, game over and eating mushroom. Red star to move to next map is added after collecting 100 poinst. In map 2 there are vertically and horizontally moving platforms.
 
 ## GRADING
 
@@ -35,7 +63,7 @@ Hardest part in development process was probably dealing with the different scen
 - There are sound effects on the game. (Annoying) backgound music, sound when jumping, collecting stars, moving to next map, eating mushroom and hitting to enemy/bomb 3p
 - There are more than one map. Second map has the same basic idea but is harder to play. 3p
 - There are moving platforms on the game (Second map) and in the main menu. 3p
-- Boot screen, mainmenu and pause functionality. 2p
+- Boot screen, mainmenu, restart (after game over) and pause functionality. 2p
 - There are different kind of objects to collect with different kind of functionalities. 2p
 - Kill enemies by jumping over them 2p
 
@@ -47,11 +75,9 @@ Hardest part in development process was probably dealing with the different scen
 - Timer to normalize velocities after 60s after eating mushroom
 - Mute annoying background music
 
-#### Bugs:
+#### BUGS:
 
-- Pause.js move to mainmenu is not working
 - Enemy sprite 'spins' while aligned with the player
-- Score doesn't update after killing enemies
 
 ### SOURCES
 

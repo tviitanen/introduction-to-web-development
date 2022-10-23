@@ -11,8 +11,8 @@ class Story extends Phaser.Scene {
     this.scene.start("Map1");
     this.scene.stop();
 
-    // this.scene.start("Map2");
-    // this.scene.stop();
+    //this.scene.start("Map2");
+    //this.scene.stop();
   }
 }
 

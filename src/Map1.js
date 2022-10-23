@@ -211,7 +211,7 @@ class Map1 extends Phaser.Scene {
     if (this.gameOver) {
       return;
     } */
-    if (this.score === 10 && this.redStar === false) {
+    if (this.score === 100 && this.redStar === false) {
       this.addRedStar();
     }
 
@@ -317,6 +317,21 @@ class Map1 extends Phaser.Scene {
         20
       );
       bomb.allowGravity = false;
+      // create enemy
+      this.enemy = this.physics.add.sprite(450, 450, "enemy-img");
+      // small bounce when character drops to ground
+      this.enemy.setBounce(0.2);
+      // collider bounds
+      this.enemy.setCollideWorldBounds(true);
+      this.enemy.excistance = true;
+      this.physics.add.collider(this.enemy, this.groupPlatforms);
+      this.physics.add.collider(
+        this.player,
+        this.enemy,
+        this.hitToEnemy,
+        null,
+        this
+      );
     }
   }
   // start next level
@@ -337,20 +352,7 @@ class Map1 extends Phaser.Scene {
   }
 
   hitToBomb(player, bomb) {
-    // play hit sound
-    this.hitSound = this.sound.add("hit");
-    this.hitSound.play();
-    this.physics.pause();
-    //tint player to red
-    player.setTint(0xff0000);
-
-    player.anims.play("anim-static");
-    this.gameOverSound = this.sound.add("game-over");
-    this.gameOverSound.play();
-    // this.gameOver = true;
-    // t0 mainmenu
-    this.scene.pause();
-    this.groupGameOver.create(400, 300, "gameover-img");
+    this.gameOver(player);
   }
 
   hitToEnemy(player, enemy) {
@@ -359,27 +361,54 @@ class Map1 extends Phaser.Scene {
       this.enemy.destroy();
       this.enemy.excistance = false;
       this.score += 3 * this.SCORE;
+      this.scoreText.setText("Score: " + this.score);
       this.killSound = this.sound.add("kill-enemy");
       this.killSound.play();
     } else {
-      // play hitsound
-      this.hitSound = this.sound.add("hit");
-      this.hitSound.play();
-      // pause
-      this.physics.pause();
-      // tint player to red
-      player.setTint(0xff0000);
-      this.gameOverSound = this.sound.add("game-over");
-      this.gameOverSound.play();
-      player.anims.play("anim-static");
-
-      //this.gameOver = true;
-
-      this.scene.pause();
-      this.groupGameOver.create(400, 300, "gameover-img");
+      this.gameOver(player);
     }
   }
+  gameOver(player) {
+    // play hitsound
+    this.hitSound = this.sound.add("hit");
+    this.hitSound.play();
+    // pause
+    this.physics.pause();
+    // tint player to red
+    player.setTint(0xff0000);
+    this.gameOverSound = this.sound.add("game-over");
+    this.gameOverSound.play();
+    player.anims.play("anim-static");
 
+    //this.gameOver = true;
+    // this.scene.pause();
+
+    this.groupGameOver.create(400, 300, "gameover-img");
+
+    // add restart button
+    let restartButton = new Button(
+      this.scale.width - 20,
+      this.scale.height - 20,
+      3,
+      this.clickStart,
+      this
+    ).setOrigin(1, 1);
+
+    restartButton.x = this.scale.width + restartButton.displayWidth + 20;
+    this.tweens.add({
+      targets: restartButton,
+      x: this.scale.width - 20,
+      duration: 500,
+      ease: "Back"
+    });
+  }
+  clickStart() {
+    this.cameras.main.on("camerafadeoutcomplete", () => {
+      this.scene.start("Story");
+      this.scene.stop();
+    });
+    this.cameras.main.fadeOut(250);
+  }
   collectMushroom(player, mushroom) {
     mushroom.disableBody(true, true);
     this.mushroomSound = this.sound.add("belch");
